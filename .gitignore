@@ -3,3 +3,4 @@
 /postgres_data
 **/migrations
 **/__pycache__
+**.pytest_cache
