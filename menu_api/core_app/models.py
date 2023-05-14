@@ -21,9 +21,10 @@ class Menu(models.Model):
     votes = models.ManyToManyField('auth_app.Employee')
 
     def vote(self, user):
-
+        
         if not is_voting_ended():
             self.votes.add(user)
+            return True
 
         raise VotingIsEndedException()
 

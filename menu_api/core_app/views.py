@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 
 from core_app.serializers import RestaurantSerializer, MenuSerializer
-from . import services
+from . import services, utils
 
 
 class GetTodaysMenu(APIView):
@@ -18,6 +18,10 @@ class GetTodaysMenu(APIView):
 
 class GetTodaysResults(APIView):
     def get(self, request):
+
+        if not utils.is_voting_ended():
+            return Response(data={'Voting is not over yet'}, status=status.HTTP_400_BAD_REQUEST)
+        
         menu = services.get_choosen_menu()
         return Response(data=menu.items, status=status.HTTP_200_OK)
 
@@ -35,7 +39,12 @@ class CreateRestaurant(APIView):
 
 class UploadRestaurantMenu(APIView):
     def post(self, request):
-        restaurant_id = request.query_params['restaurant']
+
+        try:
+            restaurant_id = request.query_params['restaurant']
+        except KeyError:
+            return Response("provide 'restaurant' parameter", status=status.HTTP_400_BAD_REQUEST)
+
         serializer = MenuSerializer(data=request.data)
 
         if serializer.is_valid():
