@@ -21,7 +21,7 @@ class GetTodaysResults(APIView):
 
         if not utils.is_voting_ended():
             return Response(data={'Voting is not over yet'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         menu = services.get_choosen_menu()
         return Response(data=menu.items, status=status.HTTP_200_OK)
 

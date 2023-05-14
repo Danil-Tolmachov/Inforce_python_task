@@ -12,7 +12,7 @@ def is_voting_ended() -> bool:
 
     time_now = timezone.now()
     deadline = datetime.combine(time_now.date(), VOTE_DEADLINE)
-    
+
     if time_now > deadline:
         return True
     return False

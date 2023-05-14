@@ -18,6 +18,6 @@ class VersionMiddleware:
                 request = WSGIRequest(request.environ)
                 request.urlconf = urlpatterns
                 break
-        
+
         response = self.get_response(request)
         return response
