@@ -11,5 +11,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = Employee.objects.create_user(**validated_data)
+        user.is_active = True
+        user.save()
         return user
     
