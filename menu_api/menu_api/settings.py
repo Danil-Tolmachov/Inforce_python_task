@@ -14,7 +14,6 @@ import environ
 import os.path
 from pathlib import Path
 
-
 env = environ.Env(
     DEBUG=(bool, False)
 )
@@ -39,22 +38,35 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "django.contrib.auth",
     "django.contrib.contenttypes",
+    # Dependencies
     "rest_framework",
-    "core",
-    "auth",
+    'djoser',
+    # Apps
+    "core_app",
+    "auth_app",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "menu_api.urls"
 
 WSGI_APPLICATION = "menu_api.wsgi.application"
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
+    'DEFAULT_VERSION': '1.0',
+    'ALLOWED_VERSIONS': ['1.0', '2.0'],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
 
 # Database
@@ -70,6 +82,29 @@ DATABASES = {
         "PORT": env('API_DATABASE_PORT'),
     }
 }
+
+
+# Authentication
+
+AUTH_USER_MODEL = 'auth_app.Employee'
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {
+            "min_length": 9,
+        },
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]
 
 
 # Default primary key field type
