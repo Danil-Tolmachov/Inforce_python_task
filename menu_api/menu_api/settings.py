@@ -49,12 +49,15 @@ INSTALLED_APPS = [
     # Apps
     "core_app",
     "auth_app",
+    # Api versions
+    "api_v1"
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "menu_api.middleware.VersionMiddleware"
 ]
 
 ROOT_URLCONF = "menu_api.urls"
@@ -63,15 +66,22 @@ WSGI_APPLICATION = "menu_api.wsgi.application"
 
 # REST Framework settings
 REST_FRAMEWORK = {
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
-    'DEFAULT_VERSION': '1.0',
-    'ALLOWED_VERSIONS': ['1.0',],
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+
+# API Versioning
+# Usage: 'menu_api/middleware.py'
+DEFAULT_API_VERSION = 'v1'
+
+API_VERSIONS = {
+    "v1": 'api_v1.urls',
+    #"v2": 'api_v2.urls'
 }
 
 

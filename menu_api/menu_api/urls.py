@@ -18,6 +18,5 @@ from django.urls import include, path
 
 
 urlpatterns = [
-    path('api/auth', include('auth_app.urls')),
-    path('api', include('core_app.urls')),
+    path('', include('api_v1.urls')), # Default API version
 ]
