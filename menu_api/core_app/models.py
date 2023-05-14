@@ -26,6 +26,6 @@ class Menu(models.Model):
             self.votes.add(user)
 
         raise VotingIsEndedException()
-        
+
     def get_votes_count(self):
         return self.votes.count()

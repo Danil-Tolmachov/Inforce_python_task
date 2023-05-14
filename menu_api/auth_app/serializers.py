@@ -14,4 +14,3 @@ class EmployeeSerializer(serializers.ModelSerializer):
         user.is_active = True
         user.save()
         return user
-    

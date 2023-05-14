@@ -6,9 +6,8 @@ from core_app.serializers import RestaurantSerializer, MenuSerializer
 from . import services
 
 
-
 class GetTodaysMenu(APIView):
-    def get(self, request): 
+    def get(self, request):
         menu = services.get_todays_menus()
         serializer = MenuSerializer(data=menu, many=True)
         serializer.is_valid()
@@ -30,10 +29,10 @@ class CreateRestaurant(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
+
+
 class UploadRestaurantMenu(APIView):
     def post(self, request):
         restaurant_id = request.query_params['restaurant']
@@ -42,5 +41,5 @@ class UploadRestaurantMenu(APIView):
         if serializer.is_valid():
             if services.update_menu(restaurant_id, serializer.validated_data):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

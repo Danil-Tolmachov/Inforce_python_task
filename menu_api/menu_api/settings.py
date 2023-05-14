@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import datetime
 import environ
 import os.path
+import os
 from pathlib import Path
+
 
 env = environ.Env(
     DEBUG=(bool, False)
@@ -24,7 +26,7 @@ env = environ.Env(
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environtment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR.parent, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -63,7 +65,7 @@ WSGI_APPLICATION = "menu_api.wsgi.application"
 REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.AcceptHeaderVersioning',
     'DEFAULT_VERSION': '1.0',
-    'ALLOWED_VERSIONS': ['1.0', '2.0'],
+    'ALLOWED_VERSIONS': ['1.0',],
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
@@ -118,3 +120,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Service variables
 VOTE_DEADLINE = datetime.time(11, 30)
+
+USE_TZ = False

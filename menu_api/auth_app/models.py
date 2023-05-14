@@ -8,6 +8,6 @@ class Employee(AbstractUser):
     email = models.CharField(max_length=255)
 
     username = models.CharField(max_length=255, unique=True)
-    
+
     groups = []
     user_permissions = []

@@ -4,8 +4,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from datetime import date
 from core_app.models import Menu, Restaurant
 
-from core_app.models import Menu
-
 
 def get_choosen_menu() -> QuerySet[Menu]:
     """
@@ -30,16 +28,16 @@ def get_todays_menus() -> QuerySet[Menu]:
 
 def update_menu(restaurant_id, data) -> bool:
     """
-        This function creates the new menu, and changes current menu of the given restaurant with a new one.
+    This function creates the new menu, and changes current menu of the given restaurant with a new one.
 
-        Returns:
-            - True is a menu is created successfuly, otherwise False.
+    Returns:
+        - True is a menu is created successfuly, otherwise False.
     """
 
     try:
         Restaurant.objects.get(pk=restaurant_id)
     except ObjectDoesNotExist:
-         return False
+        return False
 
     new_menu = Menu.objects.create(**data)
 

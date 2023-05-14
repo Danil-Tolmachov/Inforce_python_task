@@ -3,8 +3,8 @@ from core_app.views import CreateRestaurant, GetTodaysMenu, GetTodaysResults, Up
 
 
 urlpatterns = [
-    path('menu', GetTodaysMenu.as_view()),
-    path('results', GetTodaysResults.as_view()),
-    path('create-restaurant', CreateRestaurant.as_view()),
-    path('update-menu', UploadRestaurantMenu.as_view())
+    path('menu', GetTodaysMenu.as_view(), name='menu'),
+    path('results', GetTodaysResults.as_view(), name='results'),
+    path('create-restaurant', CreateRestaurant.as_view(), name='create-restaurant'),
+    path('update-menu', UploadRestaurantMenu.as_view(), name='update-menu')
 ]
