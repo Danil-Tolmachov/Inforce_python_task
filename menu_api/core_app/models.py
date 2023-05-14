@@ -1,19 +1,31 @@
 from django.utils import timezone
 from django.db import models
 
+from .utils import is_voting_ended
+from core_app.exceptions import VotingIsEndedException
 
 
-class Restaurant():
+class Restaurant(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
+    menu = models.OneToOneField('core_app.Menu', null=True, default=None, on_delete=models.CASCADE)
 
-    username = models.CharField(max_length=70)
-    password_hash = models.CharField(max_length=255)
+    def update_menu(self, restaurant, items):
+        Menu.objects.create(items=items, restarant=restaurant)
 
 
-class Menu():
+class Menu(models.Model):
     items = models.JSONField()
-    day = models.DateField(default=timezone.now())
-    restaurant = models.ForeignKey('core.Restaurant', on_delete=models.SET_NULL)
+    date = models.DateField(default=timezone.now)
 
-    votes = models.ManyToManyField('auth.Employee')
+    votes = models.ManyToManyField('auth_app.Employee')
+
+    def vote(self, user):
+
+        if not is_voting_ended():
+            self.votes.add(user)
+
+        raise VotingIsEndedException()
+        
+    def get_votes_count(self):
+        return self.votes.count()
