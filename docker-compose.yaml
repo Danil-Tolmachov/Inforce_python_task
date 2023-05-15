@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: menu_user
-      POSTGRES_PASSWORD: menu_pass
+      POSTGRES_PASSWORD: pass123
       POSTGRES_DB: menu_db
     ports:
       - "5432:5432"
@@ -18,7 +18,8 @@ services:
     restart: always
     command: >
       sh -c "flake8 .
-             python manage.py makemigrations --noinput &&
+             python manage.py makemigrations core_app &&
+             python manage.py makemigrations auth_app &&
              python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
     ports:
