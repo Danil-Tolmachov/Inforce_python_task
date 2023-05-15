@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: menu_user
-      POSTGRES_PASSWORD: pass123
+      POSTGRES_PASSWORD: menu_pass
       POSTGRES_DB: menu_db
     ports:
       - "5432:5432"

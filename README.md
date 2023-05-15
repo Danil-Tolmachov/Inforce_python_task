@@ -15,6 +15,9 @@ To get started with this API, you'll need to follow these steps:
 
 ## Endpoints
 
+API version header: **Access-version: v1**
+
+
 |http               | method | required data      | response|
 | ------------------| -------| -------------------|---------|
 |/menu              | GET    |                    |200      |
